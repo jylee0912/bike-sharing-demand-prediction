@@ -23,6 +23,7 @@ st.write(
 # Load trained model
 model_path = os.path.join(
     os.path.dirname(__file__),
+    "saved_models",
     "best_model",
     "xgboost_tuned_model.pkl"
 )
@@ -78,14 +79,14 @@ with col3:
 
     temperature = st.number_input(
         "Temperature (°C)",
-        min_value=-8.0,
-        max_value=39.0,
+        min_value=0.0,
+        max_value=41.0,
         value=20.0
     )
 
     feels_like = st.number_input(
         "Feels-like Temperature (°C)",
-        min_value=-16.0,
+        min_value=0.0,
         max_value=50.0,
         value=20.0
     )
@@ -129,8 +130,8 @@ holiday = int(is_holiday)
 workingday = int(weekday not in [0, 6] and holiday == 0)
 
 # Normalize weather variables
-normalized_temp = (temperature + 8) / 47
-normalized_atemp = (feels_like + 16) / 66
+normalized_temp = temperature / 41
+normalized_atemp = feels_like / 50
 normalized_hum = humidity / 100
 normalized_windspeed = windspeed / 67
 
